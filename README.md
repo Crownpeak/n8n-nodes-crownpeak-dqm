@@ -94,6 +94,15 @@ Each method supports query parameterization using dynamic expressions and secure
 
 ---
 
+## 📸 Screenshots
+1. A basic workflow example using n8n Crownpeak DQM Node
+   ![A basic workflow example using n8n Crownpeak DQM Node](./images/screenshots/basic-workflow-example-1.png "A basic workflow example using n8n Crownpeak DQM Node")
+
+2. The result of /spellcheck for a specified asset
+   ![The result of /spellcheck for a specified asset](./images/screenshots/basic-workflow-example-2.png "The result of /spellcheck for a specified asset")
+
+---
+
 ## Support
 
 - This repository is maintained by Crownpeak and released under the MIT License.
