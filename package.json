@@ -1,16 +1,18 @@
 {
   "name": "n8n-nodes-crownpeak-dqm",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "n8n integration for Crownpeak DQM CMS API",
-  "author": "Crownpeak Solutions Engineering",
+  "keywords": ["n8n", "n8n-nodes", "crownpeak", "dqm"],
+  "author": "Crownpeak Technology, Inc.",
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
     "test": "jest",
     "build": "tsc && npm run copy-assets",
-    "copy-assets": "cp nodes/CrownpeakDQM/crownpeak.svg dist/nodes/CrownpeakDQM/"
+    "copy-assets": "cp nodes/CrownpeakDQM/crownpeak.svg dist/nodes/CrownpeakDQM/",
+    "prepare": "npm run build"
   },
   "devDependencies": {
     "@types/jest": "^29.5.0",
@@ -23,12 +25,13 @@
   "dependencies": {
     "n8n-workflow": "^1.49.0"
   },
-  "keywords": [
-    "n8n",
-    "crownpeak",
-    "dqm",
-    "workflow",
-    "automation",
-    "cms"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Crownpeak/n8n-nodes-crownpeak-dqm.git"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
   ]
 }
