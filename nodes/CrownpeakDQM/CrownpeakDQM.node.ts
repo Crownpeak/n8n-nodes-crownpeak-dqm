@@ -40,6 +40,11 @@ export class CrownpeakDQM implements INodeType {
 						action: 'List assets',
 					},
 					{
+						name: 'Get Asset Details',
+						value: 'getAssetDetails',
+						action: 'Get details for a specific asset',
+					},
+					{
 						name: 'Get Asset Status',
 						value: 'getAssetStatus',
 						action: 'Check quality status for asset',
@@ -74,7 +79,7 @@ export class CrownpeakDQM implements INodeType {
 				default: '',
 				displayOptions: {
 					show: {
-						operation: ['getAssetStatus', 'getSpellcheckIssues', 'updateAsset', 'deleteAsset'],
+						operation: ['getAssetDetails', 'getAssetStatus', 'getSpellcheckIssues', 'updateAsset', 'deleteAsset'],
 					},
 				},
 			},
@@ -134,6 +139,12 @@ export class CrownpeakDQM implements INodeType {
 				case 'listAssets': {
 					const limit = this.getNodeParameter('limit', i) as number;
 					url = `${baseUrl}/assets?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}&limit=${limit}`;
+					method = 'GET';
+					break;
+				}
+				case 'getAssetDetails': {
+					const assetId = this.getNodeParameter('assetId', i) as string;
+					url = `${baseUrl}/assets/${assetId}?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
 					method = 'GET';
 					break;
 				}

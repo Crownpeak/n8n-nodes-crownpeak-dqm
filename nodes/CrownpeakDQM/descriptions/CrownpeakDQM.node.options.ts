@@ -14,6 +14,12 @@ export const crownpeakDqmNodeDescription: INodeProperties[] = [
 				action: 'List assets',
 			},
 			{
+				name: 'Get Asset Details',
+				value: 'getAssetDetails',
+				description: 'Get detailed information for a specific asset',
+				action: 'Get details for a specific asset',
+			},
+			{
 				name: 'Get Asset Status',
 				value: 'getAssetStatus',
 				description: 'Check the current status of an asset',
@@ -91,7 +97,7 @@ export const crownpeakDqmNodeDescription: INodeProperties[] = [
 		type: 'string',
 		displayOptions: {
 			show: {
-				operation: ['getAssetStatus', 'getSpellcheckIssues', 'updateAsset', 'deleteAsset'],
+				operation: ['getAssetDetails', 'getAssetStatus', 'getSpellcheckIssues', 'updateAsset', 'deleteAsset'],
 			},
 		},
 		default: '',
