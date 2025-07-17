@@ -80,7 +80,7 @@ export class CrownpeakDQM implements INodeType {
 				default: '',
 				displayOptions: {
 					show: {
-						operation: ['createAsset'],
+						operation: ['createAsset', 'updateAsset'],
 					},
 				},
 			},
@@ -154,9 +154,10 @@ export class CrownpeakDQM implements INodeType {
 					break;
 				}
 				case 'updateAsset': {
+					const assetId = this.getNodeParameter('assetId', i) as string;
 					content = this.getNodeParameter('content', i) as string;
 					method = 'PUT';
-					url = `${baseUrl}/assets?apiKey=${encodeURIComponent(apiKey)}`;
+					url = `${baseUrl}/assets/${assetId}?apiKey=${encodeURIComponent(apiKey)}`;
 					headers['Content-Type'] = 'application/x-www-form-urlencoded';
 					body = `websiteId=${encodeURIComponent(websiteId)}&content=${encodeURIComponent(content)}`;
 					break;
