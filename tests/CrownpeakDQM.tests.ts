@@ -40,6 +40,8 @@ describe('CrownpeakDQM Node', () => {
 				'createAsset',
 				'getAssetStatus',
 				'getSpellcheckIssues',
+				'updateAsset',
+				'deleteAsset',
 			]));
 		} else {
 			throw new Error('Operation options not found or improperly defined.');

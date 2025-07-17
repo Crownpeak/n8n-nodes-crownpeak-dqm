@@ -37,6 +37,12 @@ export const crownpeakDqmNodeDescription: INodeProperties[] = [
 				description: 'Update an existing content asset for processing',
 				action: 'Update an existing content asset',
 			},
+			{
+				name: 'Delete Asset',
+				value: 'deleteAsset',
+				description: 'Delete an existing asset from the system',
+				action: 'Delete an existing asset',
+			},
 		],
 		default: 'createAsset',
 	},
@@ -85,7 +91,7 @@ export const crownpeakDqmNodeDescription: INodeProperties[] = [
 		type: 'string',
 		displayOptions: {
 			show: {
-				operation: ['getAssetStatus', 'getSpellcheckIssues', 'updateAsset'],
+				operation: ['getAssetStatus', 'getSpellcheckIssues', 'updateAsset', 'deleteAsset'],
 			},
 		},
 		default: '',

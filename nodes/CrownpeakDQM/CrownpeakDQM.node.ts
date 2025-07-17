@@ -59,6 +59,11 @@ export class CrownpeakDQM implements INodeType {
 						value: 'updateAsset',
 						action: 'Update an existing content asset',
 					},
+					{
+						name: 'Delete Asset',
+						value: 'deleteAsset',
+						action: 'Delete an existing asset',
+					},
 				],
 				default: 'listAssets',
 			},
@@ -69,7 +74,7 @@ export class CrownpeakDQM implements INodeType {
 				default: '',
 				displayOptions: {
 					show: {
-						operation: ['getAssetStatus', 'getSpellcheckIssues', 'updateAsset'],
+						operation: ['getAssetStatus', 'getSpellcheckIssues', 'updateAsset', 'deleteAsset'],
 					},
 				},
 			},
@@ -160,6 +165,12 @@ export class CrownpeakDQM implements INodeType {
 					url = `${baseUrl}/assets/${assetId}?apiKey=${encodeURIComponent(apiKey)}`;
 					headers['Content-Type'] = 'application/x-www-form-urlencoded';
 					body = `websiteId=${encodeURIComponent(websiteId)}&content=${encodeURIComponent(content)}`;
+					break;
+				}
+				case 'deleteAsset': {
+					const assetId = this.getNodeParameter('assetId', i) as string;
+					method = 'DELETE';
+					url = `${baseUrl}/assets/${assetId}?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
 					break;
 				}
 				default:
