@@ -45,6 +45,11 @@ export class CrownpeakDQM implements INodeType {
 						action: 'List all available websites',
 					},
 					{
+						name: 'List Checkpoints',
+						value: 'listCheckpoints',
+						action: 'List all available checkpoints',
+					},
+					{
 						name: 'Get Asset Details',
 						value: 'getAssetDetails',
 						action: 'Get details for a specific asset',
@@ -154,6 +159,11 @@ export class CrownpeakDQM implements INodeType {
 				}
 				case 'listWebsites': {
 					url = `${baseUrl}/websites?apiKey=${encodeURIComponent(apiKey)}`;
+					method = 'GET';
+					break;
+				}
+				case 'listCheckpoints': {
+					url = `${baseUrl}/checkpoints?apiKey=${encodeURIComponent(apiKey)}`;
 					method = 'GET';
 					break;
 				}

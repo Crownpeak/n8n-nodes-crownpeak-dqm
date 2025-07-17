@@ -20,6 +20,12 @@ export const crownpeakDqmNodeDescription: INodeProperties[] = [
 				action: 'List all available websites',
 			},
 			{
+				name: 'List Checkpoints',
+				value: 'listCheckpoints',
+				description: 'Retrieve all available quality check checkpoints',
+				action: 'List all available checkpoints',
+			},
+			{
 				name: 'Get Asset Details',
 				value: 'getAssetDetails',
 				description: 'Get detailed information for a specific asset',
