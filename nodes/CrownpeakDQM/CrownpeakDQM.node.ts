@@ -70,6 +70,11 @@ export class CrownpeakDQM implements INodeType {
 						action: 'Fetch spellcheck issues for asset',
 					},
 					{
+						name: 'Get Asset Errors by Checkpoint',
+						value: 'getAssetErrorsByCheckpoint',
+						action: 'Get asset errors for a specific checkpoint',
+					},
+					{
 						name: 'Create Asset',
 						value: 'createAsset',
 						action: 'Submit new content asset',
@@ -94,7 +99,18 @@ export class CrownpeakDQM implements INodeType {
 				default: '',
 				displayOptions: {
 					show: {
-						operation: ['getAssetDetails', 'getAssetContent', 'getAssetStatus', 'getSpellcheckIssues', 'updateAsset', 'deleteAsset'],
+						operation: ['getAssetDetails', 'getAssetContent', 'getAssetStatus', 'getSpellcheckIssues', 'getAssetErrorsByCheckpoint', 'updateAsset', 'deleteAsset'],
+					},
+				},
+			},
+			{
+				displayName: 'Checkpoint ID',
+				name: 'checkpointId',
+				type: 'string',
+				default: '',
+				displayOptions: {
+					show: {
+						operation: ['getAssetErrorsByCheckpoint'],
 					},
 				},
 			},
@@ -188,6 +204,13 @@ export class CrownpeakDQM implements INodeType {
 				case 'getSpellcheckIssues': {
 					const assetId = this.getNodeParameter('assetId', i) as string;
 					url = `${baseUrl}/assets/${assetId}/spellcheck?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
+					method = 'GET';
+					break;
+				}
+				case 'getAssetErrorsByCheckpoint': {
+					const assetId = this.getNodeParameter('assetId', i) as string;
+					const checkpointId = this.getNodeParameter('checkpointId', i) as string;
+					url = `${baseUrl}/assets/${assetId}/errors/${checkpointId}?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
 					method = 'GET';
 					break;
 				}

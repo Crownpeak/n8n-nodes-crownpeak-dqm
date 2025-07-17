@@ -50,6 +50,12 @@ export const crownpeakDqmNodeDescription: INodeProperties[] = [
 				action: 'Get spellcheck results for an asset',
 			},
 			{
+				name: 'Get Asset Errors by Checkpoint',
+				value: 'getAssetErrorsByCheckpoint',
+				description: 'Get asset content highlighting issues for a specific checkpoint',
+				action: 'Get asset errors for a specific checkpoint',
+			},
+			{
 				name: 'Create Asset',
 				value: 'createAsset',
 				description: 'Submit new content to be analyzed',
@@ -115,12 +121,26 @@ export const crownpeakDqmNodeDescription: INodeProperties[] = [
 		type: 'string',
 		displayOptions: {
 			show: {
-				operation: ['getAssetDetails', 'getAssetContent', 'getAssetStatus', 'getSpellcheckIssues', 'updateAsset', 'deleteAsset'],
+				operation: ['getAssetDetails', 'getAssetContent', 'getAssetStatus', 'getSpellcheckIssues', 'getAssetErrorsByCheckpoint', 'updateAsset', 'deleteAsset'],
 			},
 		},
 		default: '',
 		required: true,
 		description: 'ID of the asset to query',
+	},
+
+	{
+		displayName: 'Checkpoint ID',
+		name: 'checkpointId',
+		type: 'string',
+		displayOptions: {
+			show: {
+				operation: ['getAssetErrorsByCheckpoint'],
+			},
+		},
+		default: '',
+		required: true,
+		description: 'ID of the checkpoint to get errors for',
 	}
 ];
 

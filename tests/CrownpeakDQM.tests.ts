@@ -44,6 +44,7 @@ describe('CrownpeakDQM Node', () => {
 				'createAsset',
 				'getAssetStatus',
 				'getSpellcheckIssues',
+				'getAssetErrorsByCheckpoint',
 				'updateAsset',
 				'deleteAsset',
 			]));
