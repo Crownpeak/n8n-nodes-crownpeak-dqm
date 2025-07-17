@@ -37,6 +37,7 @@ describe('CrownpeakDQM Node', () => {
 
 			expect(values).toEqual(expect.arrayContaining([
 				'listAssets',
+				'listWebsites',
 				'getAssetDetails',
 				'getAssetContent',
 				'createAsset',

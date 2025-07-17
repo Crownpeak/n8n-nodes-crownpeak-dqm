@@ -40,6 +40,11 @@ export class CrownpeakDQM implements INodeType {
 						action: 'List assets',
 					},
 					{
+						name: 'List Websites',
+						value: 'listWebsites',
+						action: 'List all available websites',
+					},
+					{
 						name: 'Get Asset Details',
 						value: 'getAssetDetails',
 						action: 'Get details for a specific asset',
@@ -144,6 +149,11 @@ export class CrownpeakDQM implements INodeType {
 				case 'listAssets': {
 					const limit = this.getNodeParameter('limit', i) as number;
 					url = `${baseUrl}/assets?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}&limit=${limit}`;
+					method = 'GET';
+					break;
+				}
+				case 'listWebsites': {
+					url = `${baseUrl}/websites?apiKey=${encodeURIComponent(apiKey)}`;
 					method = 'GET';
 					break;
 				}

@@ -14,6 +14,12 @@ export const crownpeakDqmNodeDescription: INodeProperties[] = [
 				action: 'List assets',
 			},
 			{
+				name: 'List Websites',
+				value: 'listWebsites',
+				description: 'Retrieve all available websites you have access to',
+				action: 'List all available websites',
+			},
+			{
 				name: 'Get Asset Details',
 				value: 'getAssetDetails',
 				description: 'Get detailed information for a specific asset',
