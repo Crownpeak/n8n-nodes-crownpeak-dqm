@@ -10,11 +10,11 @@ This repository provides a custom **n8n integration node** for the [Crownpeak DQ
 ## What is it?
 An n8n node module designed to simplify integration with Crownpeak DQM's CMS API using secure and structured credential management. It supports:
 
-- Listing assets
-- Checking asset processing status
-- Fetching spellcheck issues
-- Creating new assets
-- Updating existing assets
+ - Authenticate securely using API key credentials.
+ - Manage assets end-to-end: create, update, delete, and fetch content and status.
+ - Inspect asset issues via spellcheck, page highlights, and checkpoint errors.
+ - Access checkpoint and website data with tailored workflows.
+ - Chain operations using dynamic expressions, building automated quality pipelines.
 
 ## What is it for?
 This module is useful for organizations using Crownpeak DQM who want to:
@@ -82,13 +82,23 @@ And in `n8n@1.100.0+` via the UI:
 
 ## Node Features
 
-| Operation              | Method | Route                                       |
-|------------------------|--------|---------------------------------------------|
-| List Assets            | GET    | `/assets?apiKey=...&websiteId=...`         |
-| Get Asset Status       | GET    | `/assets/:assetId/status`                  |
-| Get Spellcheck Issues  | GET    | `/assets/:assetId/spellcheck`              |
-| Create Asset           | POST   | `/assets`                                  |
-| Update Asset           | PUT    | `/assets`                                  |
+| Operation                          | Method | Endpoint Route                                                 | Description                                   |
+| ---------------------------------- | ------ | -------------------------------------------------------------- | --------------------------------------------- |
+| **List Assets**                    | GET    | `/assets?apiKey&websiteId&limit`                               | Paginated asset listing with optional filters |
+| **Get Asset Details**              | GET    | `/assets/:assetId?apiKey&websiteId`                            | Full metadata for a specific asset            |
+| **Get Asset Content**              | GET    | `/assets/:assetId/content?apiKey&websiteId`                    | Fetch raw HTML/text of the asset              |
+| **Get Asset Status**               | GET    | `/assets/:assetId/status?apiKey&websiteId`                     | Processing status of the asset                |
+| **Get Spellcheck Issues**          | GET    | `/assets/:assetId/spellcheck?apiKey&websiteId`                 | Spelling/grammar issues identified            |
+| **Get Asset Errors by Checkpoint** | GET    | `/assets/:assetId/errors/:checkpointId?apiKey&websiteId`       | Errors for asset at a specific checkpoint     |
+| **Get Asset Page Highlights**      | GET    | `/assets/:assetId/pagehighlight/all?apiKey&websiteId`          | Page-level highlights of quality issues       |
+| **Create Asset**                   | POST   | `/assets?apiKey` (body: `websiteId`, `content`, `contentType`) | Submit new asset                              |
+| **Update Asset**                   | PUT    | `/assets/:assetId?apiKey` (body: `websiteId`, `content`)       | Update content or trigger re-analysis         |
+| **Delete Asset**                   | DELETE | `/assets/:assetId?apiKey&websiteId`                            | Remove asset and associated results           |
+| **List Websites**                  | GET    | `/websites?apiKey`                                             | Fetch all websites configured                 |
+| **Get Website Details**            | GET    | `/websites/:websiteId?apiKey`                                  | Metadata for a specific website               |
+| **Get Website Checkpoints**        | GET    | `/websites/:websiteId/checkpoints?apiKey`                      | Checkpoints configured on a website           |
+| **List Checkpoints**               | GET    | `/checkpoints?apiKey`                                          | Full set of available quality checkpoints     |
+| **Get Checkpoint Details**         | GET    | `/checkpoints/:checkpointId?apiKey`                            | Specific checkpoint metadata                  |
 
 Each method supports query parameterization using dynamic expressions and securely authenticates using an API key.
 
