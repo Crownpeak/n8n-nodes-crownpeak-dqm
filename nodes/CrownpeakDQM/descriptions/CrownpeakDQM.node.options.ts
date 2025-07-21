@@ -38,10 +38,22 @@ export const crownpeakDqmNodeDescription: INodeProperties[] = [
 				action: 'Get asset errors for a specific checkpoint',
 			},
 			{
+				name: 'Get Asset Page Highlights',
+				value: 'getAssetPageHighlights',
+				description: 'Get asset content with all page highlightable issues (beta feature)',
+				action: 'Get asset content with page highlights',
+			},
+			{
 				name: 'Get Asset Status',
 				value: 'getAssetStatus',
 				description: 'Check the current status of an asset',
 				action: 'Check quality status for asset',
+			},
+			{
+				name: 'Get Checkpoint Details',
+				value: 'getCheckpointDetails',
+				description: 'Get detailed information for a specific checkpoint',
+				action: 'Get details for a specific checkpoint',
 			},
 			{
 				name: 'Get Spellcheck Issues',
@@ -133,7 +145,7 @@ export const crownpeakDqmNodeDescription: INodeProperties[] = [
 		type: 'string',
 		displayOptions: {
 			show: {
-				operation: ['getAssetDetails', 'getAssetContent', 'getAssetStatus', 'getSpellcheckIssues', 'getAssetErrorsByCheckpoint', 'updateAsset', 'deleteAsset'],
+				operation: ['getAssetDetails', 'getAssetContent', 'getAssetStatus', 'getSpellcheckIssues', 'getAssetErrorsByCheckpoint', 'getAssetPageHighlights', 'updateAsset', 'deleteAsset'],
 			},
 		},
 		default: '',
@@ -147,7 +159,7 @@ export const crownpeakDqmNodeDescription: INodeProperties[] = [
 		type: 'string',
 		displayOptions: {
 			show: {
-				operation: ['getAssetErrorsByCheckpoint'],
+				operation: ['getAssetErrorsByCheckpoint', 'getCheckpointDetails'],
 			},
 		},
 		default: '',

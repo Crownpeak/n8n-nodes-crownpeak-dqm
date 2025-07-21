@@ -61,9 +61,19 @@ export class CrownpeakDQM implements INodeType {
 						action: 'Get asset errors for a specific checkpoint',
 					},
 					{
+						name: 'Get Asset Page Highlights',
+						value: 'getAssetPageHighlights',
+						action: 'Get asset content with all page highlightable issues',
+					},
+					{
 						name: 'Get Asset Status',
 						value: 'getAssetStatus',
 						action: 'Check quality status for asset',
+					},
+					{
+						name: 'Get Checkpoint Details',
+						value: 'getCheckpointDetails',
+						action: 'Get details for a specific checkpoint',
 					},
 					{
 						name: 'Get Spellcheck Issues',
@@ -110,7 +120,7 @@ export class CrownpeakDQM implements INodeType {
 				default: '',
 				displayOptions: {
 					show: {
-						operation: ['getAssetDetails', 'getAssetContent', 'getAssetStatus', 'getSpellcheckIssues', 'getAssetErrorsByCheckpoint', 'updateAsset', 'deleteAsset'],
+						operation: ['getAssetDetails', 'getAssetContent', 'getAssetStatus', 'getSpellcheckIssues', 'getAssetErrorsByCheckpoint', 'getAssetPageHighlights', 'updateAsset', 'deleteAsset'],
 					},
 				},
 			},
@@ -133,7 +143,7 @@ export class CrownpeakDQM implements INodeType {
 				default: '',
 				displayOptions: {
 					show: {
-						operation: ['getAssetErrorsByCheckpoint'],
+						operation: ['getAssetErrorsByCheckpoint', 'getCheckpointDetails'],
 					},
 				},
 			},
@@ -250,6 +260,18 @@ export class CrownpeakDQM implements INodeType {
 					const assetId = this.getNodeParameter('assetId', i) as string;
 					const checkpointId = this.getNodeParameter('checkpointId', i) as string;
 					url = `${baseUrl}/assets/${assetId}/errors/${checkpointId}?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
+					method = 'GET';
+					break;
+				}
+				case 'getAssetPageHighlights': {
+					const assetId = this.getNodeParameter('assetId', i) as string;
+					url = `${baseUrl}/assets/${assetId}/pagehighlight/all?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
+					method = 'GET';
+					break;
+				}
+				case 'getCheckpointDetails': {
+					const checkpointId = this.getNodeParameter('checkpointId', i) as string;
+					url = `${baseUrl}/checkpoints/${checkpointId}?apiKey=${encodeURIComponent(apiKey)}`;
 					method = 'GET';
 					break;
 				}
