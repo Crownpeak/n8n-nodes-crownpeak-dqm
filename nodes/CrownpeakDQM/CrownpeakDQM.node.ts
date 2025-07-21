@@ -206,72 +206,84 @@ export class CrownpeakDQM implements INodeType {
 			switch (operation) {
 				case 'listAssets': {
 					const limit = this.getNodeParameter('limit', i) as number;
-					url = `${baseUrl}/assets?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}&limit=${limit}`;
+					const searchParams = new URLSearchParams({ apiKey, websiteId, limit: limit.toString() });
+					url = `${baseUrl}/assets?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
 				case 'listWebsites': {
-					url = `${baseUrl}/websites?apiKey=${encodeURIComponent(apiKey)}`;
+					const searchParams = new URLSearchParams({ apiKey });
+					url = `${baseUrl}/websites?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
 				case 'getWebsiteDetails': {
 					const websiteId = this.getNodeParameter('websiteId', i) as string;
-					url = `${baseUrl}/websites/${websiteId}?apiKey=${encodeURIComponent(apiKey)}`;
+					const searchParams = new URLSearchParams({ apiKey });
+					url = `${baseUrl}/websites/${websiteId}?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
 				case 'getWebsiteCheckpoints': {
 					const websiteId = this.getNodeParameter('websiteId', i) as string;
-					url = `${baseUrl}/websites/${websiteId}/checkpoints?apiKey=${encodeURIComponent(apiKey)}`;
+					const searchParams = new URLSearchParams({ apiKey });
+					url = `${baseUrl}/websites/${websiteId}/checkpoints?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
 				case 'listCheckpoints': {
-					url = `${baseUrl}/checkpoints?apiKey=${encodeURIComponent(apiKey)}`;
+					const searchParams = new URLSearchParams({ apiKey });
+					url = `${baseUrl}/checkpoints?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
 				case 'getAssetDetails': {
 					const assetId = this.getNodeParameter('assetId', i) as string;
-					url = `${baseUrl}/assets/${assetId}?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
+					const searchParams = new URLSearchParams({ apiKey, websiteId });
+					url = `${baseUrl}/assets/${assetId}?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
 				case 'getAssetContent': {
 					const assetId = this.getNodeParameter('assetId', i) as string;
-					url = `${baseUrl}/assets/${assetId}/content?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
+					const searchParams = new URLSearchParams({ apiKey, websiteId });
+					url = `${baseUrl}/assets/${assetId}/content?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
 				case 'getAssetStatus': {
 					const assetId = this.getNodeParameter('assetId', i) as string;
-					url = `${baseUrl}/assets/${assetId}/status?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
+					const searchParams = new URLSearchParams({ apiKey, websiteId });
+					url = `${baseUrl}/assets/${assetId}/status?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
 				case 'getSpellcheckIssues': {
 					const assetId = this.getNodeParameter('assetId', i) as string;
-					url = `${baseUrl}/assets/${assetId}/spellcheck?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
+					const searchParams = new URLSearchParams({ apiKey, websiteId });
+					url = `${baseUrl}/assets/${assetId}/spellcheck?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
 				case 'getAssetErrorsByCheckpoint': {
 					const assetId = this.getNodeParameter('assetId', i) as string;
 					const checkpointId = this.getNodeParameter('checkpointId', i) as string;
-					url = `${baseUrl}/assets/${assetId}/errors/${checkpointId}?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
+					const searchParams = new URLSearchParams({ apiKey, websiteId });
+					url = `${baseUrl}/assets/${assetId}/errors/${checkpointId}?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
 				case 'getAssetPageHighlights': {
 					const assetId = this.getNodeParameter('assetId', i) as string;
-					url = `${baseUrl}/assets/${assetId}/pagehighlight/all?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
+					const searchParams = new URLSearchParams({ apiKey, websiteId });
+					url = `${baseUrl}/assets/${assetId}/pagehighlight/all?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
 				case 'getCheckpointDetails': {
 					const checkpointId = this.getNodeParameter('checkpointId', i) as string;
-					url = `${baseUrl}/checkpoints/${checkpointId}?apiKey=${encodeURIComponent(apiKey)}`;
+					const searchParams = new URLSearchParams({ apiKey });
+					url = `${baseUrl}/checkpoints/${checkpointId}?${searchParams.toString()}`;
 					method = 'GET';
 					break;
 				}
@@ -279,24 +291,29 @@ export class CrownpeakDQM implements INodeType {
 					content = this.getNodeParameter('content', i) as string;
 					const contentType = this.getNodeParameter('contentType', i) as string;
 					method = 'POST';
-					url = `${baseUrl}/assets?apiKey=${encodeURIComponent(apiKey)}`;
+					const searchParams = new URLSearchParams({ apiKey });
+					url = `${baseUrl}/assets?${searchParams.toString()}`;
 					headers['Content-Type'] = 'application/x-www-form-urlencoded';
-					body = `websiteId=${encodeURIComponent(websiteId)}&content=${encodeURIComponent(content)}&contentType=${encodeURIComponent(contentType)}`;
+					const bodyParams = new URLSearchParams({ websiteId, content, contentType });
+					body = bodyParams.toString();
 					break;
 				}
 				case 'updateAsset': {
 					const assetId = this.getNodeParameter('assetId', i) as string;
 					content = this.getNodeParameter('content', i) as string;
 					method = 'PUT';
-					url = `${baseUrl}/assets/${assetId}?apiKey=${encodeURIComponent(apiKey)}`;
+					const searchParams = new URLSearchParams({ apiKey });
+					url = `${baseUrl}/assets/${assetId}?${searchParams.toString()}`;
 					headers['Content-Type'] = 'application/x-www-form-urlencoded';
-					body = `websiteId=${encodeURIComponent(websiteId)}&content=${encodeURIComponent(content)}`;
+					const bodyParams = new URLSearchParams({ websiteId, content });
+					body = bodyParams.toString();
 					break;
 				}
 				case 'deleteAsset': {
 					const assetId = this.getNodeParameter('assetId', i) as string;
 					method = 'DELETE';
-					url = `${baseUrl}/assets/${assetId}?apiKey=${encodeURIComponent(apiKey)}&websiteId=${encodeURIComponent(websiteId)}`;
+					const searchParams = new URLSearchParams({ apiKey, websiteId });
+					url = `${baseUrl}/assets/${assetId}?${searchParams.toString()}`;
 					break;
 				}
 				default:
