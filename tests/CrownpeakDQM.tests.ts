@@ -36,17 +36,19 @@ describe('CrownpeakDQM Node', () => {
 				.map((o) => o.value);
 
 			expect(values).toEqual(expect.arrayContaining([
-				'listAssets',
-				'listWebsites',
-				'listCheckpoints',
-				'getAssetDetails',
-				'getAssetContent',
 				'createAsset',
+				'deleteAsset',
+				'getAssetContent',
+				'getAssetDetails',
+				'getAssetErrorsByCheckpoint',
 				'getAssetStatus',
 				'getSpellcheckIssues',
-				'getAssetErrorsByCheckpoint',
+				'getWebsiteCheckpoints',
+				'getWebsiteDetails',
+				'listAssets',
+				'listCheckpoints',
+				'listWebsites',
 				'updateAsset',
-				'deleteAsset',
 			]));
 		} else {
 			throw new Error('Operation options not found or improperly defined.');

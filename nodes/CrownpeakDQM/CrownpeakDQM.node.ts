@@ -5,7 +5,8 @@ import {
 	INodeTypeDescription,
 	NodeConnectionType,
 	IExecuteFunctions,
-	IHttpRequestMethods
+	IHttpRequestMethods,
+	NodeOperationError,
 } from 'n8n-workflow';
 
 export class CrownpeakDQM implements INodeType {
@@ -35,19 +36,19 @@ export class CrownpeakDQM implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'List Assets',
-						value: 'listAssets',
-						action: 'List assets',
+						name: 'Create Asset',
+						value: 'createAsset',
+						action: 'Submit new content asset',
 					},
 					{
-						name: 'List Websites',
-						value: 'listWebsites',
-						action: 'List all available websites',
+						name: 'Delete Asset',
+						value: 'deleteAsset',
+						action: 'Delete an existing asset',
 					},
 					{
-						name: 'List Checkpoints',
-						value: 'listCheckpoints',
-						action: 'List all available checkpoints',
+						name: 'Get Asset Content',
+						value: 'getAssetContent',
+						action: 'Get content for a specific asset',
 					},
 					{
 						name: 'Get Asset Details',
@@ -55,9 +56,9 @@ export class CrownpeakDQM implements INodeType {
 						action: 'Get details for a specific asset',
 					},
 					{
-						name: 'Get Asset Content',
-						value: 'getAssetContent',
-						action: 'Get content for a specific asset',
+						name: 'Get Asset Errors by Checkpoint',
+						value: 'getAssetErrorsByCheckpoint',
+						action: 'Get asset errors for a specific checkpoint',
 					},
 					{
 						name: 'Get Asset Status',
@@ -70,24 +71,34 @@ export class CrownpeakDQM implements INodeType {
 						action: 'Fetch spellcheck issues for asset',
 					},
 					{
-						name: 'Get Asset Errors by Checkpoint',
-						value: 'getAssetErrorsByCheckpoint',
-						action: 'Get asset errors for a specific checkpoint',
+						name: 'Get Website Checkpoints',
+						value: 'getWebsiteCheckpoints',
+						action: 'Get checkpoints for a specific website',
 					},
 					{
-						name: 'Create Asset',
-						value: 'createAsset',
-						action: 'Submit new content asset',
+						name: 'Get Website Details',
+						value: 'getWebsiteDetails',
+						action: 'Get details for a specific website',
+					},
+					{
+						name: 'List Assets',
+						value: 'listAssets',
+						action: 'List assets',
+					},
+					{
+						name: 'List Checkpoints',
+						value: 'listCheckpoints',
+						action: 'List all available checkpoints',
+					},
+					{
+						name: 'List Websites',
+						value: 'listWebsites',
+						action: 'List all available websites',
 					},
 					{
 						name: 'Update Asset',
 						value: 'updateAsset',
 						action: 'Update an existing content asset',
-					},
-					{
-						name: 'Delete Asset',
-						value: 'deleteAsset',
-						action: 'Delete an existing asset',
 					},
 				],
 				default: 'listAssets',
@@ -100,6 +111,18 @@ export class CrownpeakDQM implements INodeType {
 				displayOptions: {
 					show: {
 						operation: ['getAssetDetails', 'getAssetContent', 'getAssetStatus', 'getSpellcheckIssues', 'getAssetErrorsByCheckpoint', 'updateAsset', 'deleteAsset'],
+					},
+				},
+			},
+			{
+				displayName: 'Website ID',
+				name: 'websiteId',
+				type: 'string',
+				default: '',
+				description: 'The ID of the website to get details or checkpoints for',
+				displayOptions: {
+					show: {
+						operation: ['getWebsiteDetails', 'getWebsiteCheckpoints'],
 					},
 				},
 			},
@@ -140,7 +163,11 @@ export class CrownpeakDQM implements INodeType {
 				displayName: 'Limit',
 				name: 'limit',
 				type: 'number',
-				default: 20,
+				default: 50,
+				description: 'Max number of results to return',
+				typeOptions: {
+					minValue: 1,
+				},
 				displayOptions: {
 					show: {
 						operation: ['listAssets'],
@@ -175,6 +202,18 @@ export class CrownpeakDQM implements INodeType {
 				}
 				case 'listWebsites': {
 					url = `${baseUrl}/websites?apiKey=${encodeURIComponent(apiKey)}`;
+					method = 'GET';
+					break;
+				}
+				case 'getWebsiteDetails': {
+					const websiteId = this.getNodeParameter('websiteId', i) as string;
+					url = `${baseUrl}/websites/${websiteId}?apiKey=${encodeURIComponent(apiKey)}`;
+					method = 'GET';
+					break;
+				}
+				case 'getWebsiteCheckpoints': {
+					const websiteId = this.getNodeParameter('websiteId', i) as string;
+					url = `${baseUrl}/websites/${websiteId}/checkpoints?apiKey=${encodeURIComponent(apiKey)}`;
 					method = 'GET';
 					break;
 				}
@@ -239,7 +278,7 @@ export class CrownpeakDQM implements INodeType {
 					break;
 				}
 				default:
-					throw new Error(`Unsupported operation: ${operation}`);
+					throw new NodeOperationError(this.getNode(), `Unsupported operation: ${operation}`);
 			}
 
 			const response = await this.helpers.httpRequest({

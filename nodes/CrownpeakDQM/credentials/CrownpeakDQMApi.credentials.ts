@@ -10,7 +10,7 @@ export class CrownpeakDQMApi implements ICredentialType {
 	documentationUrl = 'https://developer.crownpeak.com/DQM/cms/index.html';
 	properties = [
 		{
-			displayName: 'API Key (required)',
+			displayName: 'API Key (Required)',
 			name: 'apiKey',
 			type: 'string' as NodePropertyTypes,
 			description: 'Your DQM API Key (required)',
